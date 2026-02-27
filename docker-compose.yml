@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:18 
+    container_name: procurement_postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: procurement
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql
+  pgadmin:
+    image: dpage/pgadmin4:9.8
+    container_name: pgadmin_procurement
+    ports:
+      - 5050:80
+    environment:
+      # Required by pgAdmin
+      PGADMIN_DEFAULT_EMAIL: demo@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin 
+    depends_on:
+      - postgres
+
+
+volumes:
+  pgdata:
+
+# psql postgresql://admin:admin@localhost:5433/procurement connect to psql
